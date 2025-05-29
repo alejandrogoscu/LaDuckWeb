@@ -1,5 +1,5 @@
-const { Product, Category } = require("../models/index.js");
-//const { Op } = Sequelize;
+const { Category, Sequelize } = require("../models/index.js");
+const { Op } = Sequelize;
 
 const CategoryController = {
   async create(req, res) {
@@ -39,6 +39,16 @@ const CategoryController = {
       res.status(500).send(error)
     }
   },
+  async getOneByName(req, res) {
+    try {
+      const category = await Category.findOne({
+        where: { name: { [Op.like]: `%${req.params.name}%` } }
+      })
+      res.send(category)
+    } catch (error) {
+      res.status(500).send(error)
+    }
+  }
 };
 
 module.exports = CategoryController;
