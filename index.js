@@ -5,7 +5,6 @@ const app = express();
 app.use(express.json());
 
 // <------ ENDPOINTS ------>
-
 app.use("/products", require("./routes/products"));
 app.use("/categories", require("./routes/categories"));
 
