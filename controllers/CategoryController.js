@@ -29,7 +29,16 @@ const CategoryController = {
     } catch (error) {
       res.status(500).send(error)
     }
-  }
+  },
+  // Aquí ira todas las categorías junto a los productos que tienen. (POR HACER)
+  async getById(req, res) {
+    try {
+      const category = await Category.findByPk(req.params.id)
+      res.send(category)
+    } catch (error) {
+      res.status(500).send(error)
+    }
+  },
 };
 
 module.exports = CategoryController;
