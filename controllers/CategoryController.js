@@ -12,12 +12,22 @@ const CategoryController = {
   },
   async update(req, res) {
     try {
-      await Category.update(req.body,{
+      await Category.update(req.body, {
         where: { id: req.params.id }
       })
       res.send("Categoría actualizada con éxito")
     } catch (error) {
       res.status(500).send(error);
+    }
+  },
+  async delete(req, res) {
+    try {
+      await Category.destroy({
+        where: { id: req.params.id }
+      })
+      res.send("Categoría eliminada con éxito")
+    } catch (error) {
+      res.status(500).send(error)
     }
   }
 };
