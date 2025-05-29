@@ -5,22 +5,34 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     return queryInterface.bulkInsert( "Categories", [
       {
-        name: "Actor / Actriz"
+        name: "Actor / Actriz",
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
-        name: "Cantante"
+        name: "Cantante",
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
-        name: "Deportista"
+        name: "Deportista",
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
-        name: "Celebridad"
+        name: "Celebridad",
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
-        name: "Cuakito"
+        name: "Cuakito",
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
-        name: "Megacuak"
+        name: "Megacuak",
+        createdAt: new Date(),
+        updatedAt: new Date()
       }
     ])
   },
