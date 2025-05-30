@@ -14,7 +14,7 @@ const ProductController = {
   async categoryLink(req, res) {
     try {
       const product = await Product.findByPk(req.params.id);
-      await product.addCategory(req.body.id_category); // <- esto asocia en la tabla intermedia
+      await product.addCategory(req.body.id_category); // <- esto asocia en la tabla intermedia MOVER A CREATE
       console.log("Product ID:", req.params.id);
       console.log("Category ID:", req.body.id_category);
 
