@@ -6,12 +6,13 @@ const ProductController = {
   async create(req, res) {
     try {
       const product = await Product.create(req.body);
+      await product.addCategory(req.body.id_category); // <- asigna una categoría (por id de categoría) al momento de crear el producto
       res.status(201).send({ msg: "Producto creado con éxito", product });
     } catch (error) {
       res.status(500).send(error);
     }
   },
-  async categoryLink(req, res) {
+  /*   async categoryLink(req, res) {
     try {
       const product = await Product.findByPk(req.params.id);
       await product.addCategory(req.body.id_category); // <- esto asocia en la tabla intermedia
@@ -22,6 +23,43 @@ const ProductController = {
     } catch (error) {
       console.error(error);
       res.status(500).send({ mensaje: "Error interno del servidor" });
+    }
+  }, */
+  async update(req, res) {
+    try {
+      await Product.update(req.body, {
+        where: { id: req.params.id },
+      });
+      res.send("Producto actualizado con éxito");
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  },
+  async delete(req, res) {
+    try {
+      await Product.destroy({
+        where: { id: req.params.id },
+      });
+      res.send("Producto eliminado con éxito");
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  },
+  async getAllWithCategories(req, res) {
+    try {
+      const product = await Product.findAll({
+        attributes: ["id", "name", "price"],
+        include: [
+          {
+            model: Category,
+            attributes: ["id", "name"],
+            through: { attributes: [] },
+          },
+        ],
+      });
+      res.send(product);
+    } catch (error) {
+      res.status(500).send(error);
     }
   },
 };
