@@ -34,7 +34,11 @@ const CategoryController = {
   async getAllWithProducts(req, res) {
     try {
       const categories = await Category.findAll({
-        include: [Product]
+        include: [{
+          model: Product,
+          attributes: ["id", "name", "price"],
+          through: { attributes: []}
+        }]
       })
       res.send(categories)
     } catch (error) {
