@@ -1,9 +1,10 @@
 'use strict';
 
+
+// sequelize db:seed --seed 20250530151510-demo-Prod_cat.js 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-
     await queryInterface.bulkInsert("Prod_Cats", [
       {
         id_product: 1,
