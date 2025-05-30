@@ -1,4 +1,4 @@
-const { Category, Sequelize } = require("../models/index.js");
+const { Category, Product, Sequelize } = require("../models/index.js");
 const { Op } = Sequelize;
 
 const CategoryController = {
@@ -30,7 +30,17 @@ const CategoryController = {
       res.status(500).send(error)
     }
   },
-  // Aquí ira todas las categorías junto a los productos que tienen. (POR HACER)
+  // ESTO FALTA POR TESTEAR!!!!!
+  async getAllWithProducts(req, res) {
+    try {
+      const categories = await Category.findAll({
+        include: [Product]
+      })
+      res.send(categories)
+    } catch (error) {
+      res.status(500).send(error)
+    }
+  }, 
   async getById(req, res) {
     try {
       const category = await Category.findByPk(req.params.id)
