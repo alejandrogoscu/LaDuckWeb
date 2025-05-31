@@ -28,8 +28,8 @@
 
 - CRUD completo con validación de campos
 - Filtro por nombre (`/products/name/:name`)
-- Filtro por precio exacto o por rango (`/products/price/:min/:max`)
-- Orden descendente por precio (`/products/desc-price`)
+- Filtro por precio exacto o por rango (`/products/price/:minprice/:maxprice`)
+- Orden descendente por precio (`/products/price`)
 - Relación many-to-many con categorías
 - Subida de imágenes con **Multer**
 - Solo usuarios autenticados pueden crear, editar o borrar productos
@@ -40,7 +40,7 @@
 - CRUD completo
 - Filtro por nombre (`/categories/name/:name`)
 - Relación many-to-many con productos
-- Ver categorías con sus productos relacionados
+- Ver categorías con sus productos relacionados (`/categories`)
 
 #### 🛒 Pedidos
 
@@ -50,9 +50,9 @@
 
 #### 🧑 Usuarios
 
-- Registro (`/auth/register`)
-- Login (`/auth/login`)
-- Logout (`/auth/logout`)
+- Registro
+- Login
+- Logout
 - Información del usuario autenticado con sus pedidos
 - Validaciones en el registro y login
 
@@ -134,14 +134,14 @@ npm install
 
 #### 4. Cofingura la base de datos
 
-    - Edita el archivo config/config.example.js con tus credenciales.
-    -Ejecuta las migraciones:
+- Edita el archivo config/config.example.js con tus credenciales.
+- Ejecuta las migraciones:
 
 ```bash
 sequelize db:migrate
 ```
 
-    - Carga datos iniciales:
+- Carga datos iniciales:
 
 ```bash
 sequelize db:migrate
