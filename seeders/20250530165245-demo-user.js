@@ -41,7 +41,7 @@ module.exports = {
         last_name: 'Quack',
         email: 'clara.quack@example.com',
         password: 'quackquack',
-        role: 'Admin',
+        role: 'MamaPato',
         adress: 'Calle del Quack 89, Barcelona',
         createdAt: new Date(),
         updatedAt: new Date()

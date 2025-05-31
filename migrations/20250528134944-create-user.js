@@ -26,6 +26,9 @@ module.exports = {
       role: {
         type: Sequelize.STRING,
       },
+      confirmed: {
+        type: Sequelize.BOOLEAN
+      },
       adress: {
         type: Sequelize.STRING,
       },
