@@ -1,5 +1,5 @@
 const { Product, Category, Sequelize } = require("../models/index.js");
-const product = require("../models/product.js");
+const product = require("../models/product.js"); // Esta línea es realmente necesaria?
 const { Op } = Sequelize;
 
 const ProductController = {

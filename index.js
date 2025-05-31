@@ -9,6 +9,8 @@ app.use("/products", require("./routes/products"));
 app.use("/categories", require("./routes/categories"));
 app.use("/users", require("./routes/users"));
 
+app.use("/reviews", require("./routes/reviews"));
+
 // <------ SERVER ------>
 const PORT = 3000;
 app.listen(PORT, () => {
