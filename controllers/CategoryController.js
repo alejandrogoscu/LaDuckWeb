@@ -13,9 +13,9 @@ const CategoryController = {
   async update(req, res) {
     try {
       await Category.update(req.body, {
-        where: { id: req.params.id }
-      })
-      res.send("Categoría actualizada con éxito")
+        where: { id: req.params.id },
+      });
+      res.send("Categoría actualizada con éxito");
     } catch (error) {
       res.status(500).send(error);
     }
@@ -23,46 +23,48 @@ const CategoryController = {
   async delete(req, res) {
     try {
       await Category.destroy({
-        where: { id: req.params.id }
-      })
-      res.send("Categoría eliminada con éxito")
+        where: { id: req.params.id },
+      });
+      res.send("Categoría eliminada con éxito");
     } catch (error) {
-      res.status(500).send(error)
+      res.status(500).send(error);
     }
   },
   // ESTO FALTA POR TESTEAR!!!!!
   async getAllWithProducts(req, res) {
     try {
       const categories = await Category.findAll({
-        include: [{
-          model: Product,
-          attributes: ["id", "name", "price"],
-          through: { attributes: []}
-        }]
-      })
-      res.send(categories)
+        include: [
+          {
+            model: Product,
+            attributes: ["id", "name", "price"],
+            through: { attributes: [] },
+          },
+        ],
+      });
+      res.send(categories);
     } catch (error) {
-      res.status(500).send(error)
+      res.status(500).send(error);
     }
-  }, 
+  },
   async getById(req, res) {
     try {
-      const category = await Category.findByPk(req.params.id)
-      res.send(category)
+      const category = await Category.findByPk(req.params.id);
+      res.send(category);
     } catch (error) {
-      res.status(500).send(error)
+      res.status(500).send(error);
     }
   },
   async getOneByName(req, res) {
     try {
       const category = await Category.findOne({
-        where: { name: { [Op.like]: `%${req.params.name}%` } }
-      })
-      res.send(category)
+        where: { name: { [Op.like]: `%${req.params.name}%` } },
+      });
+      res.send(category);
     } catch (error) {
-      res.status(500).send(error)
+      res.status(500).send(error);
     }
-  }
+  },
 };
 
 module.exports = CategoryController;
