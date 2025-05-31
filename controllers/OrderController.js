@@ -1,15 +1,29 @@
-const { Product, Category, Sequelize } = require("../models/index.js");
-const product = require("../models/product.js");
-const { Op } = Sequelize;
+const { Order, Product } = require("../models/index");
 
 const OrderController = {
   async create(req, res) {
     try {
-      const order = await Order.create(req.body);
-      await order.addProduct(req.body.id_product); // <- asigna una categoría (por id de categoría) al momento de crear el producto
+      const { id_user, id_products } = req.body;
+
+      const order = await Order.create({
+        id_user: id_user,
+      });
+
+      await Promise.all(
+        id_products.map(async (productId) => {
+          const product = await Product.findByPk(productId);
+          if (product) {
+            await product.update({ order_id: order.id });
+          }
+        })
+      );
+
       res.status(201).send({ msg: "Orden creada con éxito", order });
     } catch (error) {
-      res.status(500).send(error);
+      console.error(error);
+      res.status(500).send({ error: "Error al crear la orden" });
     }
   },
 };
+
+module.exports = OrderController;
