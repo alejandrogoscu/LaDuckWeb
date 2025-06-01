@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { jwt_secret } = require("../config/config.json")["development"]
 const { Op } = Sequelize;
+const transporter = require("../config/nodemailer.js");
 
 
 const UserController = {
@@ -10,7 +11,14 @@ const UserController = {
     try {
       const password = bcrypt.hashSync(req.body.password, 10) // Al poner <hashSync> no necesitamos el <await>
       const user = await User.create({ ...req.body, password: password, role: "user", confirmed: false })
-      res.status(201).send({ msg: "Usuari@ creado con éxito", user });
+      const url = "http://localhost:3000/users/confirm/" + req.body.email
+      await transporter.sendMail({
+        to: req.body.email,
+        subject: "Confirma tu registro",
+        html: `<h3>Bienvenid@ a la DuckWeb, estás apunto de registrarte</h3>
+        <a href="${url}">Confirma tu registro</a>`
+      })
+      res.status(201).send({ msg: "Te hemos enviado un correo para confirmar el registro", user });
     } catch (error) {
       next(error)
     }
@@ -41,6 +49,16 @@ const UserController = {
       res.status(500).send(error)
     }
   },
+
+  async confirm(req, res) {
+    try {
+      await User.update({ confirmed: true }, { where: {email: req.params.email} })
+      res.status(201).send("Usuari@ confirmad@ con éxito")
+    } catch (error) {
+      res.status(500).send(error)
+    }
+  },
+
 
   async logout(req, res) {
     try {
