@@ -1,4 +1,4 @@
-const { Order, Product } = require("../models/index");
+const { Order, Product, User } = require("../models/index");
 
 const OrderController = {
   async create(req, res) {
@@ -22,6 +22,27 @@ const OrderController = {
     } catch (error) {
       console.error(error);
       res.status(500).send({ error: "Error al crear la orden" });
+    }
+  },
+  async getAllOrdersWithProducts(req, res) {
+    try {
+      console.log("LLEGAMOS AQUÍ");
+      const order = await Order.findAll({
+        attributes: ["id"],
+        include: [
+          {
+            model: User,
+            attributes: ["name", "last_name", "adress"],
+          },
+          {
+            model: Product,
+            attributes: ["name", "price"],
+          },
+        ],
+      });
+      res.send(order);
+    } catch (error) {
+      res.status(500).send({ error: "No se han podido obtener los pedidos" });
     }
   },
 };

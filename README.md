@@ -74,7 +74,7 @@
 - **Productos - Reviews**: One to Many
 
 > Diagrama de relaciones  
-> ![](./assets/relaciones-laduckweb.jpg)
+> ![](./assets/relaciones-laduckweb_corregida.jpg)
 
 ## 🌱 Seeders
 
