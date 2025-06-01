@@ -11,7 +11,8 @@ const UserController = {
     try {
       const password = bcrypt.hashSync(req.body.password, 10) // Al poner <hashSync> no necesitamos el <await>
       const user = await User.create({ ...req.body, password: password, role: "user", confirmed: false })
-      const url = "http://localhost:3000/users/confirm/" + req.body.email
+      const emailToken = jwt.sign({ email: req.body.email }, jwt_secret, { expiresIn:"48h" })
+      const url = "http://localhost:3000/users/confirm/" + emailToken
       await transporter.sendMail({
         to: req.body.email,
         subject: "Confirma tu registro",
@@ -52,7 +53,9 @@ const UserController = {
 
   async confirm(req, res) {
     try {
-      await User.update({ confirmed: true }, { where: {email: req.params.email} })
+      const token = req.params.emailToken
+      const payload = jwt.verify(token, jwt_secret)
+      User.update({ confirmed: true }, { where: {email: payload.email} })
       res.status(201).send("Usuari@ confirmad@ con éxito")
     } catch (error) {
       res.status(500).send(error)
