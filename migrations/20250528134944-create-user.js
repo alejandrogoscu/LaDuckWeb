@@ -27,7 +27,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       confirmed: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
       },
       adress: {
         type: Sequelize.STRING,

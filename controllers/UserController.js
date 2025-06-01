@@ -9,7 +9,7 @@ const UserController = {
   async create(req, res, next) {
     try {
       const password = bcrypt.hashSync(req.body.password, 10) // Al poner <hashSync> no necesitamos el <await>
-      const user = await User.create({ ...req.body, password: password, role: "user" })
+      const user = await User.create({ ...req.body, password: password, role: "user", confirmed: false })
       res.status(201).send({ msg: "Usuari@ creado con éxito", user });
     } catch (error) {
       next(error)
@@ -21,6 +21,10 @@ const UserController = {
       const user = await User.findOne({
         where: { email: req.body.email }
       })
+
+      if (!user.confirmed) {
+        return res.status(400).send({ msg: "Debes confirmar tu correo" })
+      }
 
       const isMatch = bcrypt.compareSync(req.body.password, user.password);
       if (!user) {
