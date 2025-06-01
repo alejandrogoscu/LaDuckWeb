@@ -11,11 +11,33 @@ const ReviewController = {
     }
   },
 
+  async getAll(req, res) {
+    try {
+      const review = await Review.findAll({
+        include: [{ model: User, attributes: ["id", "name"] }]
+      })
+      res.status(200).send(review)
+    } catch (error) {
+      res.status(500).send(error)
+    }
+  },
+
+  async getById(req, res) {
+    try {
+      const review = await Review.findByPk(req.params.id, {
+        include: [{ model: User, attributes: ["id", "name"] }]
+      })
+      res.status(200).send(review)
+    } catch (error) {
+      res.status(500).send(error)
+    }
+  },
+
   async getOneByContent(req, res) {
     try {
       const review = await Review.findOne({
         where: {content: { [Op.like]: `%${req.params.content}%` }},
-        include: [User]
+        include: [{ model: User, attributes: ["id", "name"]}]
       })
       res.status(200).send(review)
     } catch (error) {
