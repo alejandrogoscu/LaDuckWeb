@@ -14,13 +14,14 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "id_product",
         otherKey: "id_category",
       });
-      // Product.belongsTo(models.Order)
+      Product.belongsTo(models.Order, { foreignKey: "order_id" });
     }
   }
   Product.init(
     {
       name: DataTypes.STRING,
       price: DataTypes.FLOAT,
+      order_id: DataTypes.INTEGER,
     },
     {
       sequelize,

@@ -28,8 +28,8 @@
 
 - CRUD completo con validación de campos
 - Filtro por nombre (`/products/name/:name`)
-- Filtro por precio exacto o por rango (`/products/price/:min/:max`)
-- Orden descendente por precio (`/products/desc-price`)
+- Filtro por precio exacto o por rango (`/products/price/:minprice/:maxprice`)
+- Orden descendente por precio (`/products/price`)
 - Relación many-to-many con categorías
 - Subida de imágenes con **Multer**
 - Solo usuarios autenticados pueden crear, editar o borrar productos
@@ -40,7 +40,7 @@
 - CRUD completo
 - Filtro por nombre (`/categories/name/:name`)
 - Relación many-to-many con productos
-- Ver categorías con sus productos relacionados
+- Ver categorías con sus productos relacionados (`/categories`)
 
 #### 🛒 Pedidos
 
@@ -50,9 +50,9 @@
 
 #### 🧑 Usuarios
 
-- Registro (`/auth/register`)
-- Login (`/auth/login`)
-- Logout (`/auth/logout`)
+- Registro
+- Login
+- Logout
 - Información del usuario autenticado con sus pedidos
 - Validaciones en el registro y login
 
@@ -90,7 +90,7 @@ Para:
 
 - Los roles están gestionados a través de un campo `role` en el modelo `User`
 - Middleware `isAdmin` para proteger rutas sensibles
-- Middleware `auth` para proteger endpoints que requieren sesión activa
+- Middleware `authentication` para proteger endpoints que requieren sesión activa
 
 ## 🖼️ Subida de imágenes
 
@@ -101,6 +101,7 @@ Implementación con **Multer** para adjuntar imágenes al crear/actualizar produ
 📁 LADUCKWEB/  
 ├── 📁 config/  
 ├── 📁 controllers/  
+├── 📁 middlwares/  
 ├── 📁 migrations/  
 ├── 📁 models/  
 ├── 📁 node_modules/  
@@ -134,17 +135,17 @@ npm install
 
 #### 4. Cofingura la base de datos
 
-    - Edita el archivo config/config.example.js con tus credenciales.
-    -Ejecuta las migraciones:
+- Edita el archivo config/config.example.js con tus credenciales.
+- Ejecuta las migraciones:
 
 ```bash
 sequelize db:migrate
 ```
 
-    - Carga datos iniciales:
+- Puebla las tablas con los seeders:
 
 ```bash
-sequelize db:migrate
+sequelize db:seed:all
 ```
 
 #### 5.Inicia el servidor
@@ -154,6 +155,11 @@ npm run dev
 ```
 
 El servidor arranca en http://localhost:3000
+
+## Documentación API 🧲
+
+La documentación de la API del proyecto se encuentra detallada en el siguiente link:
+https://documenter.getpostman.com/view/45418601/2sB2qgdy5a
 
 ## 💻 Autores
 
