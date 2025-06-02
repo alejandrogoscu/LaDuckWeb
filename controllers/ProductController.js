@@ -1,4 +1,4 @@
-const { Product, Category, Sequelize } = require("../models/index.js");
+const { Product, Category, Review, Sequelize } = require("../models/index.js");
 const product = require("../models/product.js"); // Esta línea es realmente necesaria?
 const { Op } = Sequelize;
 
@@ -12,19 +12,6 @@ const ProductController = {
       res.status(500).send(error);
     }
   },
-  /*   async categoryLink(req, res) {
-    try {
-      const product = await Product.findByPk(req.params.id);
-      await product.addCategory(req.body.id_category); // <- esto asocia en la tabla intermedia MOVER A CREATE
-      console.log("Product ID:", req.params.id);
-      console.log("Category ID:", req.body.id_category);
-
-      res.send({ mensaje: "Categoría asociada correctamente" });
-    } catch (error) {
-      console.error(error);
-      res.status(500).send({ mensaje: "Error interno del servidor" });
-    }
-  }, */
   async update(req, res) {
     try {
       await Product.update(req.body, {
@@ -66,6 +53,17 @@ const ProductController = {
     try {
       const product = await Product.findByPk(req.params.id, {
         attributes: ["id", "name", "price"],
+        include: [
+          {
+            model: Category,
+            attributes: ["id", "name"],
+            through: { attributes: [] },
+          },
+          {
+            model: Review,
+            attributes: ["content"]
+          }
+        ]
       });
       res.send(product);
     } catch (error) {

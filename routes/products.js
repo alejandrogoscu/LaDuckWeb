@@ -1,11 +1,11 @@
 const express = require("express");
 const ProductController = require("../controllers/ProductController");
 const router = express.Router();
+const { authentication, isAdmin } = require("../middlewares/authentication");
 
-router.post("/", ProductController.create);
-//router.post("/product/:id/category", ProductController.categoryLink);
-router.put("/id/:id", ProductController.update);
-router.delete("/id/:id", ProductController.delete);
+router.post("/",authentication, isAdmin, ProductController.create);
+router.put("/id/:id",authentication, isAdmin, ProductController.update);
+router.delete("/id/:id",authentication, isAdmin, ProductController.delete);
 router.get("/", ProductController.getAllWithCategories);
 router.get("/id/:id", ProductController.getById);
 router.get("/name/:name", ProductController.getAllByName);

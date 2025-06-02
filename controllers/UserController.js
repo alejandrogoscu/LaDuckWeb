@@ -1,4 +1,4 @@
-const { User, Token, Sequelize } = require("../models/index.js");
+const { User, Token, Order, Product, Sequelize } = require("../models/index.js");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { jwt_secret } = require("../config/config.json")["development"]
@@ -48,6 +48,24 @@ const UserController = {
       res.send({ msg: `Bienvenid@ ${user.name}`, user, token })
     } catch (error) {
       res.status(500).send(error)
+    }
+  },
+
+  async getById(req, res) {
+    try {
+      const user = await User.findByPk(req.params.id, {
+        attributes: ["id", "name", "last_name", "email", "adress"],
+        include: [
+          {
+            model: Order,
+            attributes: ["id"],
+            include: [{model: Product, attributes: ["name", "price"]}]
+          },
+        ]
+      });
+      res.send(user);
+    } catch (error) {
+      res.status(500).send(error);
     }
   },
 

@@ -15,12 +15,21 @@ module.exports = (sequelize, DataTypes) => {
         otherKey: "id_category",
       });
       Product.belongsTo(models.Order, { foreignKey: "order_id" });
+      Product.hasMany(models.Review, { foreignKey: "id_product"})
     }
   }
   Product.init(
     {
-      name: DataTypes.STRING,
-      price: DataTypes.FLOAT,
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: { notNull: { msg: "Por favor, introduce un nombre de producto" } },
+      },
+      price: {
+        type: DataTypes.FLOAT,
+        allowNull: false,
+        validate: { notNull: { msg: "Por favor, introcude un precio de procuto"} }
+      }, 
       order_id: DataTypes.INTEGER,
     },
     {
