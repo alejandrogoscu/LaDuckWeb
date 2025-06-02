@@ -1,15 +1,14 @@
 const { Product, Category, Review, Sequelize } = require("../models/index.js");
-const product = require("../models/product.js"); // Esta línea es realmente necesaria?
 const { Op } = Sequelize;
 
 const ProductController = {
-  async create(req, res) {
+  async create(req, res, next) {
     try {
       const product = await Product.create(req.body);
       await product.addCategory(req.body.id_category); // <- asigna una categoría (por id de categoría) al momento de crear el producto
       res.status(201).send({ msg: "Producto creado con éxito", product });
     } catch (error) {
-      res.status(500).send(error);
+      next(error);
     }
   },
   async update(req, res) {
@@ -42,6 +41,10 @@ const ProductController = {
             attributes: ["id", "name"],
             through: { attributes: [] },
           },
+          {
+            model: Review,
+            attributes: ["content"],
+          },
         ],
       });
       res.send(product);
@@ -61,9 +64,9 @@ const ProductController = {
           },
           {
             model: Review,
-            attributes: ["content"]
-          }
-        ]
+            attributes: ["content"],
+          },
+        ],
       });
       res.send(product);
     } catch (error) {
