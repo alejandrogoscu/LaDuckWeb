@@ -10,8 +10,7 @@ const ProductController = {
       await product.addCategory(req.body.id_category); // <- asigna una categoría (por id de categoría) al momento de crear el producto
       res.status(201).send({ msg: "Producto creado con éxito", product });
     } catch (error) {
-      res.send(error)
-      // next(error);
+      next(error);
     }
   },
   async update(req, res) {
