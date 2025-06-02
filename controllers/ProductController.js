@@ -1,14 +1,17 @@
 const { Product, Category, Review, Sequelize } = require("../models/index.js");
 const { Op } = Sequelize;
 
+
 const ProductController = {
   async create(req, res, next) {
     try {
-      const product = await Product.create(req.body);
+      const imagePath = req.file ? req.file.path : null;
+      const product = await Product.create({...req.body, image: imagePath});
       await product.addCategory(req.body.id_category); // <- asigna una categoría (por id de categoría) al momento de crear el producto
       res.status(201).send({ msg: "Producto creado con éxito", product });
     } catch (error) {
-      next(error);
+      res.send(error)
+      // next(error);
     }
   },
   async update(req, res) {

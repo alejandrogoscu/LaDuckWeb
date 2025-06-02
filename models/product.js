@@ -34,6 +34,7 @@ module.exports = (sequelize, DataTypes) => {
           notNull: { msg: "Por favor, introduce un precio de producto" },
         },
       },
+      image: DataTypes.STRING,
       order_id: DataTypes.INTEGER,
     },
     {

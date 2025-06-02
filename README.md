@@ -94,11 +94,12 @@ Para:
 
 ## 🖼️ Subida de imágenes
 
-Implementación con **Multer** para adjuntar imágenes al crear/actualizar productos. Las imágenes se almacenan en una carpeta `/uploads` con nombre único.
+Implementación con **Multer** para adjuntar imágenes al crear productos. Las imágenes se almacenan en una carpeta `/assets/uploads` con nombre único.
 
 ## 📁 Estructura del proyecto
 
 📁 LADUCKWEB/  
+├── 📁 assets/    
 ├── 📁 config/  
 ├── 📁 controllers/  
 ├── 📁 middlwares/  

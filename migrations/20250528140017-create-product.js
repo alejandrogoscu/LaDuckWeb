@@ -16,6 +16,9 @@ module.exports = {
       price: {
         type: Sequelize.FLOAT,
       },
+      image: {
+        type: Sequelize.STRING,
+      },
       order_id: {
         type: Sequelize.INTEGER,
       },

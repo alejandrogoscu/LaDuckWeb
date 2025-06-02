@@ -26,7 +26,6 @@ const OrderController = {
   },
   async getAllOrdersWithProducts(req, res) {
     try {
-      console.log("LLEGAMOS AQUÍ");
       const order = await Order.findAll({
         attributes: ["id"],
         include: [
