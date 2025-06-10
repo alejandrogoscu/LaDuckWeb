@@ -20,7 +20,6 @@ const OrderController = {
 
       res.status(201).send({ msg: "Orden creada con éxito", order });
     } catch (error) {
-      console.error(error);
       res.status(500).send({ error: "Error al crear la orden" });
     }
   },
